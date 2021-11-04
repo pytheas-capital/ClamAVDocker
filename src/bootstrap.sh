@@ -14,8 +14,8 @@ set -e
 #     mv /etc/clamav/clamd.conf /etc/clamav/clamd.conf.bak
 #     cp -f ${CLAMD_CONF_FILE} /etc/clamav/clamd.conf
 # fi
-if [[ ! -z "${CVUPDATE}" ]]; then
-   echo "PrivateMirror http://clamav-updates-http:8080" >> /etc/clamav/freshclam.conf
+if [[ ! -z "${CVUPDATE_URL}" ]]; then
+   echo "PrivateMirror ${CVUPDATE_URL}" >> /etc/clamav/freshclam.conf
 fi
 
 # start clam service itself and the updater in background as daemon
@@ -32,7 +32,7 @@ if [ "${CLAMAV_NO_FRESHCLAMD:-false}" != "true" ]; then
 		          --daemon \
 		          --foreground \
 		          --stdout \
-		          --user="clamav" \
+		          --user="clamav_user" \
 			  &
 fi
 if [ "${CLAMAV_NO_CLAMD:-false}" != "true" ]; then
